@@ -1,2 +1,2 @@
-# SpringWebChat
-Web Chat utilising spring boot, javascript, mongodb
+# SpringChat
+ spring boot based web chat application

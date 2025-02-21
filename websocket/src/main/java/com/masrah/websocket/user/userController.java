@@ -20,7 +20,7 @@ public class userController {
     @MessageMapping("/user.addUser")
     @SendTo("/user/topic")
     public User addUser(
-           @Payload User user
+            @Payload User user
     ) {
         service.saveUser(user);
         return user;
@@ -35,11 +35,11 @@ public class userController {
         service.disconnect(user);
         return user;
     }
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> findConnectedUsers() {
         return ResponseEntity.ok(service.findConnectedUsers());
     }
-
 
 
 }
