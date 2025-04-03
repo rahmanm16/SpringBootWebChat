@@ -9,14 +9,14 @@
 <body>
 <h2>SpringChat | Communication, revolutionised</h2>
 
-<div class="usr-form" id="username-page">
+<div class="user-form" id="username-page">
     <h2>Enter Chatroom</h2>
-    <form id="usernameForm">
+    <form id="username-Form">
         <label for="nickname">Nickname:</label>
         <input type="text" id="nickname" name="nickname" required>
 
         <label for="fullname">Given name:</label>
-        <input type="text" id="fullname" name="givenname" required>
+        <input type="text" id="fullname" name="fullname" required>
 
         <button type="submit">Enter Chatroom</button>
     </form>
@@ -26,7 +26,7 @@
     <div class="usr-list">
         <div class="usr-list-container">
             <h2>Online Users</h2>
-            <ul id="connectedUsrs">
+            <ul id="connectedUsers">
             </ul>
         </div>
         <div>
@@ -47,8 +47,8 @@
         </form>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

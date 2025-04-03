@@ -1,27 +1,23 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo
     container_name: mongo_db
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - mongo:/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=masrah270
-      - MONGO_INITDB_ROOT_PASSWORD=Masroor@16
-
+      - MONGO_INITDB_ROOT_USERNAME=masrah
+      - MONGO_INITDB_ROOT_PASSWORD=masrah
   mongo-express:
     image: mongo-express
     container_name: mongo_express
     restart: always
     ports:
-      - "8081:8081"
+      - 8081:8081
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=masrah
       - ME_CONFIG_MONGODB_ADMINPASSWORD=masrah
       - ME_CONFIG_MONGODB_SERVER=mongodb
-
 volumes:
   mongo: {}
