@@ -19,8 +19,8 @@ let selectedUser = null;
 function connect(event) {
 
 
-    nickname = document.querySelector('#nickname');
-    fullname = document.querySelector('#fullname');
+    nickname = document.querySelector('#nickname').value.trim();
+    fullname = document.querySelector('#fullname').value.trim();
     if(nickname && fullname) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
@@ -40,12 +40,13 @@ function onConnected() {
     stompClient.subscribe(`/user/public`, onMessageReceived);
 
     // Register connected user obtained from usr controller msg mapping
-    stompClient.send('app/user.addUser'
-    {},
-    JSON.stringify({nickName: nickname, fullName: fullname, status: 'ONLINE'})
-    );
-    // find & display connected user(s)
-    findAndDisplayConnectedUsers().then();
+    stompClient.send(
+        '/app/user.addUser',
+        {},
+        JSON.stringify({nickName: nickname, fullName: fullname, status: 'ONLINE'})
+        );
+        // find & display connected user(s)
+        findAndDisplayConnectedUsers().then();
 }
 
 
@@ -59,7 +60,6 @@ async function findAndDisplayConnectedUsers() {
     connectedUsers.forEach(user => {
         appendUserElement(user, connectedUserList);
            if (connectedUsers.index(user) < connectedUsers.length -1) {
-            // separator
             const separator = document.createElement('li');
             separator.classList.add('separator');
             connectedUserList.appendChild(separator)
