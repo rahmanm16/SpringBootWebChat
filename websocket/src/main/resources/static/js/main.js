@@ -21,6 +21,7 @@ function connect(event) {
 
     nickname = document.querySelector('#nickname').value.trim();
     fullname = document.querySelector('#fullname').value.trim();
+
     if(nickname && fullname) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
@@ -53,7 +54,7 @@ function onConnected() {
 async function findAndDisplayConnectedUsers() {
     const connectedUserResponse = await fetch('/users');
     let connectedUsers = await connectedUserResponse.json();
-    connectedUsers = connectedUsers.filter(user => user.nickName !== nickname);
+    connectedUsers = connectedUsers.filter(user => user.nickname !== nickname);
     const connectedUserList = document.getElementById('connectedUsers');
     connectedUserList.innerHTML = '';
 
@@ -71,7 +72,7 @@ async function findAndDisplayConnectedUsers() {
 function appendUserElement(user, connectedUserList) {
     const listItem = document.createElement('li');
     listItem.classList.add('user-item');
-    listItem.id = user.nickName;
+    listItem.id = user.nickname;
 
     const userImage = document.createElement('img');
     userImage.src = '../img/user_icon.png';
@@ -94,7 +95,7 @@ function appendUserElement(user, connectedUserList) {
 }
 
 function onError() {
-
+    // connectingElement
 }
 
 function onMessageReceived() {
