@@ -14,13 +14,14 @@ let stompClient = null;
 let nickname = null;
 let fullname = null;
 
-let selectedUser = null;
+let selectedUserID = null;
 
 function connect(event) {
 
 
     nickname = document.querySelector('#nickname').value.trim();
     fullname = document.querySelector('#fullname').value.trim();
+
     if(nickname && fullname) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
@@ -41,7 +42,7 @@ function onConnected() {
 
     // Register connected user obtained from usr controller msg mapping
     stompClient.send(
-        '/app/user.addUser',
+        "/app/user.addUser",
         {},
         JSON.stringify({nickName: nickname, fullName: fullname, status: 'ONLINE'})
         );
@@ -94,7 +95,7 @@ function appendUserElement(user, connectedUserList) {
 }
 
 function onError() {
-
+    // connectingElement
 }
 
 function onMessageReceived() {

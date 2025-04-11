@@ -1,4 +1,5 @@
-/* main.css - SpringChat unique, modern styling */
+/* main.css - initial / normal styling, future updates may include more accessibilty options;
+e.g. (kb navigation) tab order, focus styles (indicate which element is currently selected), also include visual accessibility (color contrast, adjustable font sizing && / || spacing) */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 

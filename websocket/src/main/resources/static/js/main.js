@@ -14,7 +14,7 @@ let stompClient = null;
 let nickname = null;
 let fullname = null;
 
-let selectedUser = null;
+let selectedUserID = null;
 
 function connect(event) {
 
@@ -42,7 +42,7 @@ function onConnected() {
 
     // Register connected user obtained from usr controller msg mapping
     stompClient.send(
-        '/app/user.addUser',
+        "/app/user.addUser",
         {},
         JSON.stringify({nickName: nickname, fullName: fullname, status: 'ONLINE'})
         );
@@ -54,7 +54,7 @@ function onConnected() {
 async function findAndDisplayConnectedUsers() {
     const connectedUserResponse = await fetch('/users');
     let connectedUsers = await connectedUserResponse.json();
-    connectedUsers = connectedUsers.filter(user => user.nickname !== nickname);
+    connectedUsers = connectedUsers.filter(user => user.nickName !== nickname);
     const connectedUserList = document.getElementById('connectedUsers');
     connectedUserList.innerHTML = '';
 
@@ -72,7 +72,7 @@ async function findAndDisplayConnectedUsers() {
 function appendUserElement(user, connectedUserList) {
     const listItem = document.createElement('li');
     listItem.classList.add('user-item');
-    listItem.id = user.nickname;
+    listItem.id = user.nickName;
 
     const userImage = document.createElement('img');
     userImage.src = '../img/user_icon.png';
