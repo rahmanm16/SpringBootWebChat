@@ -90,8 +90,43 @@ function appendUserElement(user, connectedUserList) {
     listItem.appendChild(usernameSpan);
     listItem.appendChild(receivedMsg);
 
+    listItem.addEventListener('click' , userItemClick;
+
+
+
     connectedUserList.appendChild(listItem);
 
+}
+
+function userItemClick(event) {
+    // set item as 'active' - change bg? fetch user msgs.
+
+    document.querySelectorAll('.user-item').forEach(=> {
+        item.classList.remove('active');
+    });
+
+        messageForm.classList.remove('hidden');
+
+        // selects all clicked elements
+        const clickedUser = event.currentTarget;
+
+        selectedUserID = clickedUser.getAttribute('id');
+        fetchAndDisplayUserChat().then();
+
+        // save msgs
+        const usrMsg = clickedUser.querySelector('.usr-msg');
+        usrMsg.classList.add('hidden');
+
+    }
+
+    async function fetchAndDisplayUserChat() {
+        const userChatResponse = await fetch(`/messages/${nickname}/${selectedUserID}`)
+
+        const userChat = await userChatResponse.json();
+
+        chatArea.innerHTML = '';
+
+    }
 }
 
 function onError() {

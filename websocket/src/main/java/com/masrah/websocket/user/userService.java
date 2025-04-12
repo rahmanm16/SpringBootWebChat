@@ -19,8 +19,7 @@ public class userService {
     }
 
     public void disconnect(User user) {
-        var storedUser = repository.findById(user.getUserName())
-                .orElse(null);
+        var storedUser = repository.findById(user.getNickName()).orElse(null);
 
         if (storedUser != null) {
             storedUser.setStatus(Status.ONLINE);
