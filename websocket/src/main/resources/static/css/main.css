@@ -149,10 +149,8 @@ h2 {
 }
 
 #chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -163,6 +161,12 @@ h2 {
   line-height: 1.4;
   word-wrap: break-word;
   background: #ecf0f1;
+}
+
+.message.sender {
+  background: #3498db;
+  color: #fff;
+  margin-left: auto;
 }
 
 .message.receiver {
