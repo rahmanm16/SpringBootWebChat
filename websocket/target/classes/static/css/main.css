@@ -61,155 +61,153 @@ h2 {
 }
 
 .user-form button:hover {
-        background: #596c79;
+  background: #596c79;
 }
 
 /* chat container */
 
 .chat-container {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 1000px;
 }
 
 /* user list */
 .usr-list {
-        background: #fff;
-        padding: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        width: 250px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .usr-list-container h2 {
-        margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 #connectedUsers {
-        list-style: none;
+  list-style: none;
 }
 
 .user-item {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.21s;
-
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.21s;
 }
 
 .user-item img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .user-item:hover,
 .user-item.active {
-        background: #ecf0f1;
-
+  background: #ecf0f1;
 }
 
 .separator {
-        height: 1px;
-        background: #ddd;
-        margin: 0.5rem 0;
-
+  height: 1px;
+  background: #ddd;
+  margin: 0.5rem 0;
 }
 
 .logout {
-        display: inline-block;
-        margin-top: 1rem;
-        color: #252424;
-        text-decoration: none;
-        font-weight: bold;
-        cursor: pointer;
-        
+  display: inline-block;
+  margin-top: 1rem;
+  color: #252424;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .logout:hover {
-        color: #596c79;
+  color: #596c79;
 }
 
 /* chat area */
 
 .chat-area {
-        flex: 1;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #chat-messages {
-        flex: 1;
-        overflow-y: auto;
-        margin-bottom: 1rem;
-        padding-right: 0.5rem;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
-        max-width: 60%;
-        margin-bottom: 0.75rem;
-        padding: 0.75rem;
-        border-radius: 10px;
-        line-height: 1.4;
-        word-wrap: break-word;
-        background: #ecf0f1;
+  max-width: 60%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  background: #ecf0f1;
+}
+
+.message.sender {
+  background: #3498db;
+  color: #fff;
+  margin-left: auto;
 }
 
 .message.receiver {
-        background: #bdc3c7;
-        margin-right: auto;
+  background: #bdc3c7;
+  margin-right: auto;
 }
 
 .msg-input {
-        display: flex;
-        gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .msg-input input {
-        flex: 1;
-        padding: 0.75rem;
-        border-radius: 8px;
-        border: 1px solid #ccc
-
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .msg-input button {
-        padding: 0.75rem 1.5rem;
-        background: #000000;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background 0.2s;
+  padding: 0.75rem 1.5rem;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
 }
 
 .msg-input button:hover {
-        background: #596c79;
+  background: #596c79;
 }
 
 .hidden {
-        display: none !important;
+  display: none !important;
 }
 
 .usr-msg {
-        margin-left: auto;
-        color: red;
-        font-size: 0.8rem;
-        padding-left: 0.25rem;
+  margin-left: auto;
+  color: red;
+  font-size: 0.8rem;
+  padding-left: 0.25rem;
 }
