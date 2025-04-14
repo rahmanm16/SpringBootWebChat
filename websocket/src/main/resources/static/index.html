@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
     <title>SpringChat</title>
-</head>
-<body>
-<h2>SpringChat | Communication, made easy</h2>
+  </head>
+  <body>
+    <h2>SpringChat | Communication, made easy</h2>
 
-<div class="user-form" id="username-page">
-    <h2>Enter Chatroom</h2>
-    <form id="username-Form">
+    <div class="user-form" id="username-page">
+      <h2>Enter Chatroom</h2>
+      <form id="username-Form">
         <label for="nickname">Nickname:</label>
-        <input type="text" id="nickname" name="nickname" required>
+        <input type="text" id="nickname" name="nickname" required />
 
         <label for="fullname">Given name:</label>
-        <input type="text" id="fullname" name="fullname" required>
+        <input type="text" id="fullname" name="fullname" required />
 
         <button type="submit">Enter Chatroom</button>
-    </form>
-</div>
+      </form>
+    </div>
 
-<div class="chat-container hide" id="chat-page">
-    <div class="usr-list">
+    <div class="chat-container hide" id="chat-page">
+      <div class="usr-list">
         <div class="usr-list-container">
-            <h2>Online Users</h2>
-            <ul id="connectedUsers">
-            </ul>
+          <h2>Online Users</h2>
+          <ul id="connectedUsers"></ul>
         </div>
         <div>
-            <p id="connected-user-fullname"></p>
-            <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
+          <p id="connected-user-fullname"></p>
+          <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
         </div>
-    </div>
+      </div>
 
-    <div class="chat-area">
-        <div class="chat-area" id="chat-messages">
-
-        </div>
+      <div class="chat-area">
+        <div class="chat-area" id="chat-messages"></div>
         <form id="msgForm" name="msgForm" class="hidden">
-            <div class="msg-input">
-                <input autocomplete="off" type="text" id="message" placeholder="Type...">
-                <button>Send</button>
-            </div>
+          <div class="msg-input">
+            <input
+              autocomplete="off"
+              type="text"
+              id="message"
+              placeholder="Type..."
+            />
+            <button>Send</button>
+          </div>
         </form>
+      </div>
     </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/main.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
 </html>
