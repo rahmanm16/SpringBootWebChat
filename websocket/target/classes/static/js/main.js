@@ -9,12 +9,37 @@ const messageInput = document.querySelector("#message");
 const connectingElement = document.querySelector(".connecting");
 const chatArea = document.querySelector("#chat-messages");
 const logoutArea = document.querySelector("#logout");
+const accessibilityBtn = document.getElementById("accessibility-toggle");
 
 let stompClient = null;
 let nickname = null;
 let fullname = null;
 
 let selectedUserID = null;
+
+window.addEventListener("load", () => {
+  const savedMode = localStorage.getItem("accessibility");
+  if(savedMode === "on") {
+    enableAccessibility();
+  }
+});
+
+accessibilityBtn.addEventListener("click", () => {
+  const isEnabled = document.body.classList.toggle("accessibility-mode");
+    localStorage.setItem("accessibility", isEnabled ? "on" : "off");
+    updateAccessibilityButtonText(isEnabled);
+});
+
+function enableAccessibility() {
+  document.body.classList.add("accessibility-mode");
+  updateAccessibilityButtonText(true);
+}
+
+function updateAccessibilityButtonText(enabled) {
+  accessibilityBtn.textContent = enabled ? "Default" : "Accessiblity Options";
+  accessibilityBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+
+}
 
 function connect(event) {
   nickname = document.querySelector("#nickname").value.trim();
