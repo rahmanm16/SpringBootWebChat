@@ -6,7 +6,7 @@ let nickname = null;
 let fullname = null;
 let selectedUserID = null;
 
-// DOMContentLoaded for initializing DOM-dependent code
+// DOMContentLoaded for initialising DOM-dependent code
 document.addEventListener("DOMContentLoaded", () => {
   // DOM element selections
   const usernamePage = document.querySelector("#username-page");
@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSlider = document.getElementById("font-slider");
   const spacingToggle = document.getElementById("spacing-toggle");
 
-  // Accessibility Initialization
-  initializeAccessibility();
+  // Accessibility Initialisation
+  initialiseAccessibility();
 
   // Accessibility Button toggle
   accessibilityBtn.addEventListener("click", () => {
@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function Definitions
 
-  // Accessibility initialization function
-  function initializeAccessibility() {
+  // Accessibility initialisation function
+  function initialiseAccessibility() {
     const highContrast = localStorage.getItem("high-contrast") === "true";
     document.body.classList.toggle("high-contrast", highContrast);
     highContrastToggle.checked = highContrast;
