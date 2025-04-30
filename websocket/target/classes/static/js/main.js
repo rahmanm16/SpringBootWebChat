@@ -9,7 +9,13 @@ const messageInput = document.querySelector("#message");
 const connectingElement = document.querySelector(".connecting");
 const chatArea = document.querySelector("#chat-messages");
 const logoutArea = document.querySelector("#logout");
+
 const accessibilityBtn = document.getElementById("accessibility-toggle");
+const accessibilityMenu = document.getElementById("accessibility-menu");
+
+const highContrastToggle = document.getElementById("high-contrast-toggle");
+const fontSlider = document.getElementById("font-slider");
+const spacingToggle = document.getElementById("spacing-toggle");
 
 let stompClient = null;
 let nickname = null;
@@ -19,15 +25,50 @@ let selectedUserID = null;
 
 window.addEventListener("load", () => {
   const savedMode = localStorage.getItem("accessibility");
-  if(savedMode === "on") {
+  if (savedMode === "on") {
     enableAccessibility();
   }
 });
 
 accessibilityBtn.addEventListener("click", () => {
-  const isEnabled = document.body.classList.toggle("accessibility-mode");
-    localStorage.setItem("accessibility", isEnabled ? "on" : "off");
-    updateAccessibilityButtonText(isEnabled);
+  const expanded = accessibilityBtn.getAttribute("aria-expanded") === "true";
+  accessibilityBtn.setAttribute("aria-expanded", String(!expanded));
+  accessibilityMenu.setAttribute("aria-hidden", String(expanded));
+});
+
+// Initialize saved preferences
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.toggle(
+    "high-contrast",
+    localStorage.getItem("high-contrast") === "true"
+  );
+  highContrastToggle.checked = localStorage.getItem("high-contrast") === "true";
+
+  const fontScale = localStorage.getItem("font-scale") || "100";
+  document.documentElement.style.fontSize = `${fontScale}%`;
+  fontSlider.value = fontScale;
+
+  document.body.classList.toggle(
+    "increased-spacing",
+    localStorage.getItem("increased-spacing") === "true"
+  );
+  spacingToggle.checked = localStorage.getItem("increased-spacing") === "true";
+});
+
+// Event listeners for accessibility options
+highContrastToggle.addEventListener("change", () => {
+  document.body.classList.toggle("high-contrast", highContrastToggle.checked);
+  localStorage.setItem("high-contrast", highContrastToggle.checked);
+});
+
+fontSlider.addEventListener("input", () => {
+  document.documentElement.style.fontSize = `${fontSlider.value}%`;
+  localStorage.setItem("font-scale", fontSlider.value);
+});
+
+spacingToggle.addEventListener("change", () => {
+  document.body.classList.toggle("increased-spacing", spacingToggle.checked);
+  localStorage.setItem("increased-spacing", spacingToggle.checked);
 });
 
 function enableAccessibility() {
@@ -38,7 +79,6 @@ function enableAccessibility() {
 function updateAccessibilityButtonText(enabled) {
   accessibilityBtn.textContent = enabled ? "Default" : "Accessiblity Options";
   accessibilityBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
-
 }
 
 function connect(event) {

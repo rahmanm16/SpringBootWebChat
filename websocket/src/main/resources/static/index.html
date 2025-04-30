@@ -1,65 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <title>SpringChat</title>
-  </head>
-  <body>
-    <button
-      id="accessibility-toggle"
-      class="accessibility-btn"
-      aria-pressed="false"
-      role="switch"
-    >
-      Accessibility Options
-    </button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <title>SpringChat</title>
+</head>
+<body>
+<button id="accessibility-toggle" class="accessibility-btn" aria-expanded="false">
+  Accessibility Options
+</button>
 
-    <h2>SpringChat | Communication, made easy</h2>
+<div id="accessibility-menu" class="accessibility-menu" aria-hidden="true">
+  <label>
+    <input type="checkbox" id="high-contrast-toggle"/> High Contrast
+  </label>
+  <label>
+    Font Size:
+    <input type="range" id="font-slider" min="100" max="200" value="100"/>
+  </label>
+  <label>
+    <input type="checkbox" id="spacing-toggle"/> Increased Spacing
+  </label>
+</div>
 
-    <div class="user-form" id="username-page">
-      <h2>Enter Chatroom</h2>
-      <form id="username-Form">
-        <label for="nickname">Nickname:</label>
-        <input type="text" id="nickname" name="nickname" required />
+<h2>SpringChat | Communication, made easy</h2>
 
-        <label for="fullname">Given name:</label>
-        <input type="text" id="fullname" name="fullname" required />
+<div class="user-form" id="username-page">
+  <h2>Enter Chatroom</h2>
+  <form id="username-Form">
+    <label for="nickname">Nickname:</label>
+    <input type="text" id="nickname" required/>
 
-        <button type="submit">Enter Chatroom</button>
-      </form>
-    </div>
+    <label for="fullname">Given name:</label>
+    <input type="text" id="fullname" required/>
 
-    <div class="chat-container hide" id="chat-page">
-      <div class="usr-list">
-        <div class="usr-list-container">
-          <h2>Online Users</h2>
-          <ul id="connectedUsers"></ul>
-        </div>
-        <div>
-          <p id="connected-user-fullname"></p>
-          <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
-        </div>
+    <button type="submit">Enter Chatroom</button>
+  </form>
+</div>
+
+<div class="chat-container hidden" id="chat-page">
+  <div class="usr-list">
+    <h2>Online Users</h2>
+    <ul id="connectedUsers"></ul>
+    <p id="connected-user-fullname"></p>
+    <a class="logout" href="#" id="logout">Logout</a>
+  </div>
+
+  <div class="chat-area">
+    <div id="chat-messages"></div>
+    <form id="msgForm" class="hidden">
+      <div class="msg-input">
+        <input autocomplete="off" type="text" id="message" placeholder="Type..."/>
+        <button>Send</button>
       </div>
+    </form>
+  </div>
+</div>
 
-      <div class="chat-area">
-        <div class="chat-area" id="chat-messages"></div>
-        <form id="msgForm" name="msgForm" class="hidden">
-          <div class="msg-input">
-            <input
-              autocomplete="off"
-              type="text"
-              id="message"
-              placeholder="Type..."
-            />
-            <button>Send</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/js/main.js"></script>
-  </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
 </html>

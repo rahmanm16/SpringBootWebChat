@@ -21,6 +21,15 @@ body {
   min-height: 100vh;
 }
 
+body input,
+body button,
+body textarea,
+body h2,
+body label,
+body p {
+  font-size: inherit;
+}
+
 h2 {
   margin-bottom: 1rem;
   color: #2c3e50;
@@ -70,7 +79,6 @@ body.accessibility-mode button {
 body.accessibility-mode .message.sender {
   background-color: #00aaff !important;
   color: #000 !important;
-
 }
 
 body.accessibility-mode .message.receiver {
@@ -267,4 +275,110 @@ body.accessibility-mode .message.receiver {
   color: red;
   font-size: 0.8rem;
   padding-left: 0.25rem;
+}
+
+/* Accessibility dropdown styling */
+.accessibility-menu {
+  position: fixed;
+  top: 3.5rem;
+  right: 1rem;
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  z-index: 999;
+}
+
+.accessibility-menu label {
+  display: block;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.accessibility-menu label:hover {
+  background: #444;
+}
+
+.accessibility-btn[aria-expanded="true"] + .accessibility-menu {
+  max-height: 150px;
+}
+
+body.high-contrast {
+  color: #fff !important;
+}
+
+body.high-contrast h2,
+body.high-contrast .user-form h2,
+body.high-contrast .usr-list-container h2 {
+  color: #fff !important;
+}
+
+body.high-contrast .user-item span,
+body.high-contrast .usr-msg {
+  color: #fff !important;
+}
+
+body.high-contrast .user-form,
+body.high-contrast .chat-area,
+body.high-contrast .usr-list {
+  background-color: #111 !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast input,
+body.high-contrast button {
+  background-color: #222 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+body.high-contrast .message.sender {
+  background-color: #ffff00 !important;
+  color: #000 !important;
+}
+
+body.high-contrast .message.receiver {
+  background-color: #00ffff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .logout {
+  color: #fff !important;
+}
+
+body.high-contrast .accessibility-menu label {
+  color: #fff !important;
+}
+
+body.high-contrast .message p {
+  color: #fff !important;
+}
+
+body.high-contrast ::placeholder {
+  color: #ccc !important;
+}
+
+/* Large Font mode */
+body.large-font {
+  font-size: 1.5rem;
+}
+
+body.large-font input,
+body.large-font button {
+  font-size: 1.2rem;
+}
+
+/* Increased spacing mode */
+body.increased-spacing {
+  line-height: 2.2;
+  letter-spacing: 0.1rem;
+}
+
+/* Keep clear focus style for accessibility */
+*:focus {
+  outline: 3px dashed #0ff !important;
+  outline-offset: 3px;
 }

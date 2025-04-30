@@ -10,11 +10,25 @@
     <button
       id="accessibility-toggle"
       class="accessibility-btn"
-      aria-pressed="false"
-      role="switch"
+      aria-expanded="false"
+      aria-controls="accessibility-menu"
     >
       Accessibility Options
     </button>
+
+    <div id="accessibility-menu" class="accessibility-menu" aria-hidden="true">
+      <label
+        ><input type="checkbox" id="high-contrast-toggle" /> High
+        Contrast</label
+      >
+      <label for="font-slider"
+        >Font Size:
+        <input type="range" id="font-slider" min="100" max="200" value="100" />
+      </label>
+      <label
+        ><input type="checkbox" id="spacing-toggle" /> Increased Spacing</label
+      >
+    </div>
 
     <h2>SpringChat | Communication, made easy</h2>
 
