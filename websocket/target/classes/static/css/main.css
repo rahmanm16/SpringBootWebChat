@@ -361,16 +361,6 @@ body.high-contrast ::placeholder {
   color: #ccc !important;
 }
 
-/* Large Font mode */
-body.large-font {
-  font-size: 1.5rem;
-}
-
-body.large-font input,
-body.large-font button {
-  font-size: 1.2rem;
-}
-
 /* Increased spacing mode */
 body.increased-spacing {
   line-height: 2.2;

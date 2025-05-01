@@ -1,76 +1,80 @@
 "use strict";
 
-// Global variables
 let stompClient = null;
 let nickname = null;
 let fullname = null;
 let selectedUserID = null;
 
-// DOMContentLoaded for initialising DOM-dependent code
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM element selections
+
   const usernamePage = document.querySelector("#username-page");
   const chatPage = document.querySelector("#chat-page");
-  const usernameForm = document.querySelector("#username-Form");
-  const messageForm = document.querySelector("#msgForm");
+  const usernameForm = document.querySelector("#username-form");
+  const messageForm = document.querySelector("#msg-form");
   const messageInput = document.querySelector("#message");
   const chatArea = document.querySelector("#chat-messages");
   const logoutArea = document.querySelector("#logout");
+
   const accessibilityBtn = document.getElementById("accessibility-toggle");
   const accessibilityMenu = document.getElementById("accessibility-menu");
   const highContrastToggle = document.getElementById("high-contrast-toggle");
   const fontSlider = document.getElementById("font-slider");
   const spacingToggle = document.getElementById("spacing-toggle");
 
-  // Accessibility Initialisation
-  initialiseAccessibility();
+  if (
+    accessibilityBtn &&
+    accessibilityMenu &&
+    highContrastToggle &&
+    fontSlider &&
+    spacingToggle
+  ) {
+    // initialise persisted prefs
+    initialiseAccessibility();
 
-  // Accessibility Button toggle
-  accessibilityBtn.addEventListener("click", () => {
-    const expanded = accessibilityBtn.getAttribute("aria-expanded") === "true";
-    accessibilityBtn.setAttribute("aria-expanded", String(!expanded));
-    accessibilityMenu.setAttribute("aria-hidden", String(expanded));
-  });
+    // toggle the dropdown
+    accessibilityBtn.addEventListener("click", () => {
+      const expanded = accessibilityBtn.getAttribute("aria-expanded") === "true";
+      accessibilityBtn.setAttribute("aria-expanded", String(!expanded));
+      accessibilityMenu.setAttribute("aria-hidden", String(expanded));
+    });
 
-  // Accessibility Event Listeners
-  highContrastToggle.addEventListener("change", () => {
-    document.body.classList.toggle("high-contrast", highContrastToggle.checked);
-    localStorage.setItem("high-contrast", highContrastToggle.checked);
-  });
+    // high contrast checkbox
+    highContrastToggle.addEventListener("change", () => {
+      document.body.classList.toggle("high-contrast", highContrastToggle.checked);
+      localStorage.setItem("high-contrast", highContrastToggle.checked);
+    });
 
-  fontSlider.addEventListener("input", () => {
-    document.documentElement.style.fontSize = `${fontSlider.value}%`;
-    localStorage.setItem("font-scale", fontSlider.value);
-  });
+    // font-size slider
+    fontSlider.addEventListener("input", () => {
+      document.documentElement.style.fontSize = `${fontSlider.value}%`;
+      localStorage.setItem("font-scale", fontSlider.value);
+    });
 
-  spacingToggle.addEventListener("change", () => {
-    document.body.classList.toggle("increased-spacing", spacingToggle.checked);
-    localStorage.setItem("increased-spacing", spacingToggle.checked);
-  });
+    // spacing checkbox
+    spacingToggle.addEventListener("change", () => {
+      document.body.classList.toggle("increased-spacing", spacingToggle.checked);
+      localStorage.setItem("increased-spacing", spacingToggle.checked);
+    });
+  }
+  else {
+    console.warn("Accessibility controls missing—skipping accessibility setup.");
+  }
 
-  // Form submissions
-  usernameForm.addEventListener("submit", connect, true);
-  messageForm.addEventListener("submit", sendMsg, true);
 
-  // Function Definitions
-
-  // Accessibility initialisation function
   function initialiseAccessibility() {
-    const highContrast = localStorage.getItem("high-contrast") === "true";
-    document.body.classList.toggle("high-contrast", highContrast);
-    highContrastToggle.checked = highContrast;
-
     const fontScale = localStorage.getItem("font-scale") || "100";
     document.documentElement.style.fontSize = `${fontScale}%`;
     fontSlider.value = fontScale;
 
-    const increasedSpacing =
-      localStorage.getItem("increased-spacing") === "true";
+    const highContrast = localStorage.getItem("high-contrast") === "true";
+    document.body.classList.toggle("high-contrast", highContrast);
+    highContrastToggle.checked = highContrast;
+
+    const increasedSpacing = localStorage.getItem("increased-spacing") === "true";
     document.body.classList.toggle("increased-spacing", increasedSpacing);
     spacingToggle.checked = increasedSpacing;
   }
 
-  // Chat Connection Functions
   function connect(event) {
     nickname = document.querySelector("#nickname").value.trim();
     fullname = document.querySelector("#fullname").value.trim();
@@ -87,10 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function onConnected() {
-    stompClient.subscribe(
-      `/user/${nickname}/queue/messages`,
-      onMessageReceived
-    );
+    stompClient.subscribe(`/user/${nickname}/queue/messages`, onMessageReceived);
     stompClient.subscribe(`/user/public`, onMessageReceived);
 
     stompClient.send(
@@ -102,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         status: "ONLINE",
       })
     );
+
     findAndDisplayConnectedUsers().then();
   }
 
@@ -110,91 +112,83 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function findAndDisplayConnectedUsers() {
-    const connectedUserResponse = await fetch("/users");
-    let connectedUsers = await connectedUserResponse.json();
-    connectedUsers = connectedUsers.filter(
-      (user) => user.nickName !== nickname
-    );
-    const connectedUserList = document.getElementById("connectedUsers");
-    connectedUserList.innerHTML = "";
+    const response = await fetch("/users");
+    let users = await response.json();
+    users = users.filter((user) => user.nickName !== nickname);
 
-    connectedUsers.forEach((user, index) => {
-      appendUserElement(user, connectedUserList);
-      if (index < connectedUsers.length - 1) {
+    const userList = document.getElementById("connectedUsers");
+    userList.innerHTML = "";
+
+    users.forEach((user, index) => {
+      appendUserElement(user, userList);
+      if (index < users.length - 1) {
         const separator = document.createElement("li");
         separator.classList.add("separator");
-        connectedUserList.appendChild(separator);
+        userList.appendChild(separator);
       }
     });
   }
 
-  function appendUserElement(user, connectedUserList) {
-    const listItem = document.createElement("li");
-    listItem.classList.add("user-item");
-    listItem.id = user.nickName;
+  function appendUserElement(user, container) {
+    const item = document.createElement("li");
+    item.classList.add("user-item");
+    item.id = user.nickName;
 
-    const userImage = document.createElement("img");
-    userImage.src = "../imgs/user_icon.png";
-    userImage.alt = user.fullName;
+    const img = document.createElement("img");
+    img.src = "../imgs/user_icon.png";
+    img.alt = user.fullName;
 
-    const usernameSpan = document.createElement("span");
-    usernameSpan.textContent = user.fullName;
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = user.fullName;
 
-    const receivedMsg = document.createElement("span");
-    receivedMsg.textContent = "";
-    receivedMsg.classList.add("usr-msg", "hidden");
+    const msgSpan = document.createElement("span");
+    msgSpan.textContent = "";
+    msgSpan.classList.add("usr-msg", "hidden");
 
-    listItem.append(userImage, usernameSpan, receivedMsg);
-    listItem.addEventListener("click", userItemClick);
-    connectedUserList.appendChild(listItem);
+    item.append(img, nameSpan, msgSpan);
+    item.addEventListener("click", userItemClick);
+    container.appendChild(item);
   }
 
   function userItemClick(event) {
-    document
-      .querySelectorAll(".user-item")
-      .forEach((item) => item.classList.remove("active"));
+    document.querySelectorAll(".user-item").forEach((el) => el.classList.remove("active"));
     messageForm.classList.remove("hidden");
 
-    const clickedUser = event.currentTarget;
-    selectedUserID = clickedUser.id;
+    const user = event.currentTarget;
+    selectedUserID = user.id;
     fetchAndDisplayUserChat().then();
 
-    const usrMsg = clickedUser.querySelector(".usr-msg");
-    usrMsg.classList.add("hidden");
+    const alertMsg = user.querySelector(".usr-msg");
+    alertMsg.classList.add("hidden");
   }
 
   async function fetchAndDisplayUserChat() {
-    const userChatResponse = await fetch(
-      `/messages/${nickname}/${selectedUserID}`
-    );
-    const userChat = await userChatResponse.json();
+    const res = await fetch(`/messages/${nickname}/${selectedUserID}`);
+    const chatData = await res.json();
 
     chatArea.innerHTML = "";
-    userChat.forEach((chat) => displayMessage(chat.senderId, chat.content));
+    chatData.forEach(({ senderId, content }) => displayMessage(senderId, content));
     chatArea.scrollTop = chatArea.scrollHeight;
   }
 
   function displayMessage(senderId, content) {
-    const msgContainer = document.createElement("div");
-    msgContainer.classList.add(
-      "message",
-      senderId === nickname ? "sender" : "receiver"
-    );
-    msgContainer.innerHTML = `<p>${content}</p>`;
-    chatArea.appendChild(msgContainer);
+    const div = document.createElement("div");
+    div.classList.add("message", senderId === nickname ? "sender" : "receiver");
+    div.innerHTML = `<p>${content}</p>`;
+    chatArea.appendChild(div);
   }
 
   function sendMsg(event) {
-    const messageContent = messageInput.value.trim();
-    if (messageContent && stompClient) {
-      const chatMsg = {
+    const content = messageInput.value.trim();
+    if (content && stompClient) {
+      const msg = {
         senderId: nickname,
         receiverId: selectedUserID,
-        content: messageContent,
+        content,
         timestamp: new Date(),
       };
-      stompClient.send("/app/chat", {}, JSON.stringify(chatMsg));
-      displayMessage(nickname, messageContent);
+      stompClient.send("/app/chat", {}, JSON.stringify(msg));
+      displayMessage(nickname, content);
       messageInput.value = "";
     }
     chatArea.scrollTop = chatArea.scrollHeight;
@@ -209,11 +203,15 @@ document.addEventListener("DOMContentLoaded", () => {
       chatArea.scrollTop = chatArea.scrollHeight;
     }
 
-    const notifiedUser = document.querySelector(`#${message.senderId}`);
-    if (notifiedUser && !notifiedUser.classList.contains("active")) {
-      const usrMsg = notifiedUser.querySelector(".usr-msg");
-      usrMsg.classList.remove("hidden");
-      usrMsg.textContent = "New message!";
+    const userEl = document.querySelector(`#${message.senderId}`);
+    if (userEl && !userEl.classList.contains("active")) {
+      const alert = userEl.querySelector(".usr-msg");
+      alert.classList.remove("hidden");
+      alert.textContent = "New message!";
     }
   }
+
+    // Submit Events
+    usernameForm.addEventListener("submit", connect, true);
+    messageForm.addEventListener("submit", sendMsg, true);
 });
