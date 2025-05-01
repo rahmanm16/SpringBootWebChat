@@ -353,8 +353,24 @@ body.high-contrast .accessibility-menu label {
   color: #fff !important;
 }
 
-body.high-contrast .message p {
+/* body.high-contrast .message p {
   color: #fff !important;
+}
+*/
+
+body.high-contrast .message.sender {
+  background-color: #ffff00 !important;
+  color: #000 !important;
+}
+
+body.high-contrast .message.receiver {
+  background-color: #00ffff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .message.sender p,
+body.high-contrast .message.receiver p {
+  color: #000 !important;
 }
 
 body.high-contrast ::placeholder {

@@ -6,7 +6,6 @@ let fullname = null;
 let selectedUserID = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const usernamePage = document.querySelector("#username-page");
   const chatPage = document.querySelector("#chat-page");
   const usernameForm = document.querySelector("#username-form");
@@ -33,14 +32,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // toggle the dropdown
     accessibilityBtn.addEventListener("click", () => {
-      const expanded = accessibilityBtn.getAttribute("aria-expanded") === "true";
+      const expanded =
+        accessibilityBtn.getAttribute("aria-expanded") === "true";
       accessibilityBtn.setAttribute("aria-expanded", String(!expanded));
       accessibilityMenu.setAttribute("aria-hidden", String(expanded));
     });
 
     // high contrast checkbox
     highContrastToggle.addEventListener("change", () => {
-      document.body.classList.toggle("high-contrast", highContrastToggle.checked);
+      document.body.classList.toggle(
+        "high-contrast",
+        highContrastToggle.checked
+      );
       localStorage.setItem("high-contrast", highContrastToggle.checked);
     });
 
@@ -52,14 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // spacing checkbox
     spacingToggle.addEventListener("change", () => {
-      document.body.classList.toggle("increased-spacing", spacingToggle.checked);
+      document.body.classList.toggle(
+        "increased-spacing",
+        spacingToggle.checked
+      );
       localStorage.setItem("increased-spacing", spacingToggle.checked);
     });
+  } else {
+    console.warn(
+      "Accessibility controls missing—skipping accessibility setup."
+    );
   }
-  else {
-    console.warn("Accessibility controls missing—skipping accessibility setup.");
-  }
-
 
   function initialiseAccessibility() {
     const fontScale = localStorage.getItem("font-scale") || "100";
@@ -70,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("high-contrast", highContrast);
     highContrastToggle.checked = highContrast;
 
-    const increasedSpacing = localStorage.getItem("increased-spacing") === "true";
+    const increasedSpacing =
+      localStorage.getItem("increased-spacing") === "true";
     document.body.classList.toggle("increased-spacing", increasedSpacing);
     spacingToggle.checked = increasedSpacing;
   }
@@ -91,7 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function onConnected() {
-    stompClient.subscribe(`/user/${nickname}/queue/messages`, onMessageReceived);
+    stompClient.subscribe(
+      `/user/${nickname}/queue/messages`,
+      onMessageReceived
+    );
     stompClient.subscribe(`/user/public`, onMessageReceived);
 
     stompClient.send(
@@ -151,7 +161,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function userItemClick(event) {
-    document.querySelectorAll(".user-item").forEach((el) => el.classList.remove("active"));
+    document
+      .querySelectorAll(".user-item")
+      .forEach((el) => el.classList.remove("active"));
     messageForm.classList.remove("hidden");
 
     const user = event.currentTarget;
@@ -167,7 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatData = await res.json();
 
     chatArea.innerHTML = "";
-    chatData.forEach(({ senderId, content }) => displayMessage(senderId, content));
+    chatData.forEach(({ senderId, content }) =>
+      displayMessage(senderId, content)
+    );
     chatArea.scrollTop = chatArea.scrollHeight;
   }
 
@@ -211,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-    // Submit Events
-    usernameForm.addEventListener("submit", connect, true);
-    messageForm.addEventListener("submit", sendMsg, true);
+  // Submit Events
+  usernameForm.addEventListener("submit", connect, true);
+  messageForm.addEventListener("submit", sendMsg, true);
 });
